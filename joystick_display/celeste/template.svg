@@ -1,166 +1,268 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg width="600" height="500" viewBox="0 0 158.74999 132.29167"
-version="1.1" id="svg8" sodipodi:docname="template.svg"
-inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-xmlns="http://www.w3.org/2000/svg"
-xmlns:svg="http://www.w3.org/2000/svg"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-xmlns:cc="http://creativecommons.org/ns#"
-xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <defs id="defs2" />
-    <sodipodi:namedview id="base" pagecolor="#ffffff"
-    bordercolor="#666666" borderopacity="1.0"
-    inkscape:pageopacity="0.0" inkscape:pageshadow="2"
-    inkscape:zoom="1.4" inkscape:cx="130" inkscape:cy="231.78571"
-    inkscape:document-units="mm" inkscape:current-layer="layer2"
-    showgrid="false" units="px" inkscape:window-width="2560"
-    inkscape:window-height="1440" inkscape:window-x="0"
-    inkscape:window-y="240" inkscape:window-maximized="1"
-    showguides="false" inkscape:pagecheckerboard="0" />
-    <metadata id="metadata5">
-        <rdf:RDF>
-            <cc:Work rdf:about="">
-                <dc:format>image/svg+xml</dc:format>
-                <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                <dc:title />
-            </cc:Work>
-        </rdf:RDF>
-    </metadata>
-    <g inkscape:groupmode="layer" id="layer2"
-    inkscape:label="Layer 2" style="display:inline;opacity:1"
-    transform="translate(0,26.458333)">
-        <g id="g999" transform="translate(-8.2754302,8.0545103)">
-            <g id="g4878" inkscape:label="btnA"
-            class="theme-button" ojd-button="A"
-            transform="matrix(1.5230212,0,0,1.5230212,-39.067383,-11.572084)">
 
-                <circle r="4.2994785" cy="36.040028" cx="106.68378"
-                id="path3817-5-6-2-3"
-                style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.111986;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-                <g transform="translate(0,-2.1166667)"
-                id="text4665-5"
-                style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
-                aria-label="A" inkscape:label="lblA"
-                class="theme-label" ojd-button="A">
-                    <path inkscape:connector-curvature="0"
-                    id="path4737"
-                    style="font-size:4.23333px;fill:#ffffff;stroke-width:0.264583"
-                    d="m 106.68378,37.024981 -0.56637,1.535823 h 1.13481 z m -0.23565,-0.411345 h 0.47336 l 1.17616,3.086117 h -0.43409 l -0.28112,-0.791683 h -1.39112 l -0.28112,0.791683 h -0.44029 z" />
-                </g>
-            </g>
-            <g id="g4883" inkscape:label="btnB"
-            class="theme-button" ojd-button="B"
-            transform="matrix(1.5230212,0,0,1.5230212,-39.067383,-11.572084)">
-
-                <circle r="4.2994785" cy="43.883034" cx="97.423363"
-                id="path3817-5-6-7"
-                style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.111986;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-                <g transform="translate(0,-2.1166667)"
-                id="text4665-54"
-                style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
-                aria-label="B" inkscape:label="lblB"
-                class="theme-label" ojd-button="B">
-                    <path inkscape:connector-curvature="0"
-                    id="path4734"
-                    style="font-size:4.23333px;fill:#ffffff;stroke-width:0.264583"
-                    d="m 96.7464,46.068947 v 1.13068 h 0.669726 q 0.336931,0 0.498161,-0.138492 0.163298,-0.14056 0.163298,-0.427881 0,-0.289388 -0.163298,-0.425814 -0.16123,-0.138493 -0.498161,-0.138493 z m 0,-1.269173 v 0.930176 h 0.61805 q 0.305924,0 0.454753,-0.113688 0.150895,-0.115756 0.150895,-0.3514 0,-0.233578 -0.150895,-0.349333 -0.148829,-0.115755 -0.454753,-0.115755 z m -0.417546,-0.343131 h 1.066602 q 0.47749,0 0.735872,0.198437 0.258382,0.198438 0.258382,0.564307 0,0.283187 -0.132291,0.450618 -0.132292,0.167432 -0.388607,0.208773 0.307991,0.06615 0.47749,0.276986 0.171566,0.208772 0.171566,0.522965 0,0.413411 -0.28112,0.638721 -0.28112,0.225309 -0.799951,0.225309 h -1.107943 z" />
-                </g>
-            </g>
-            <g id="g4873" inkscape:label="btnX"
-            class="theme-button" ojd-button="X"
-            transform="matrix(1.5230212,0,0,1.5230212,-39.067383,-11.572084)">
-
-                <circle r="4.2994785" cy="27.913538" cx="97.423363"
-                id="path3817-5-6-2-9-6"
-                style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.111986;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-                <g transform="translate(0,-2.1166667)"
-                id="text4665-5-4"
-                style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
-                aria-label="X" inkscape:label="lblX"
-                class="theme-label" ojd-button="X">
-                    <path inkscape:connector-curvature="0"
-                    id="path4740"
-                    style="font-size:4.23333px;fill:#ffffff;stroke-width:0.264583"
-                    d="m 96.243076,28.487149 h 0.448551 l 0.766878,1.147216 0.771013,-1.147216 h 0.448551 l -0.992188,1.48208 1.058334,1.604036 h -0.448552 l -0.868164,-1.312581 -0.874365,1.312581 h -0.450618 l 1.101741,-1.647444 z" />
-                </g>
-            </g>
-            <g id="g4868" inkscape:label="btnY"
-            class="theme-button" ojd-button="Y"
-            transform="matrix(1.5230212,0,0,1.5230212,-39.067383,-11.572084)">
-
-                <circle r="4.2994785" cy="35.85104" cx="88.257439"
-                id="path3817-5-6-2-9-1-1"
-                style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.111986;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-                <g transform="translate(0,-2.1166667)"
-                id="text4665-3"
-                style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
-                aria-label="Y" inkscape:label="lblY"
-                class="theme-label" ojd-button="Y">
-                    <path inkscape:connector-curvature="0"
-                    id="path4743"
-                    style="font-size:4.23333px;fill:#ffffff;stroke-width:0.264583"
-                    d="m 86.956225,36.424649 h 0.448551 l 0.855762,1.269173 0.84956,-1.269173 h 0.448552 l -1.091407,1.616438 v 1.469678 h -0.419612 v -1.469678 z" />
-                </g>
-            </g>
+<svg
+   width="400"
+   height="300"
+   viewBox="0 0 105.83333 79.375005"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="template.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="225.26402"
+     inkscape:cy="332.84526"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="2560"
+     inkscape:window-height="1440"
+     inkscape:window-x="0"
+     inkscape:window-y="240"
+     inkscape:window-maximized="1"
+     showguides="false"
+     inkscape:pagecheckerboard="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2"
+     style="display:inline;opacity:1"
+     transform="translate(0,26.458333)">
+    <g
+       id="g999"
+       transform="translate(-31.409694,-16.945489)">
+      <g
+         id="g4878"
+         inkscape:label="btnA"
+         class="theme-button"
+         ojd-button="A"
+         transform="matrix(1.5230212,0,0,1.5230212,-39.067383,-11.572084)">
+        <circle
+           r="4.2994785"
+           cy="36.040028"
+           cx="106.68378"
+           id="path3817-5-6-2-3"
+           style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.111986;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <g
+           transform="translate(0,-2.1166667)"
+           id="text4665-5"
+           style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           aria-label="A"
+           inkscape:label="lblA"
+           class="theme-label"
+           ojd-button="A">
+          <path
+             inkscape:connector-curvature="0"
+             id="path4737"
+             style="font-size:4.23333px;fill:#ffffff;stroke-width:0.264583"
+             d="m 106.68378,37.024981 -0.56637,1.535823 h 1.13481 z m -0.23565,-0.411345 h 0.47336 l 1.17616,3.086117 h -0.43409 l -0.28112,-0.791683 h -1.39112 l -0.28112,0.791683 h -0.44029 z" />
         </g>
-        <circle style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#999999;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-        id="path3817" cx="49.98632" cy="51.281719" r="16.190598" />
-        <g id="g4900" inkscape:label="btnPlus" class="theme-button"
-        ojd-button="PLUS"
-        transform="matrix(-1.5230212,0,0,1.5230212,153.7235,-10.148123)">
-
-            <circle r="2.3553126" cy="27.867004" cx="51.466087"
-            id="path4096-29"
-            style="display:inline;opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-            <g transform="translate(0,-2.1166667)" id="text4641"
-            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.1255px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.103138"
-            aria-label="+" inkscape:label="lblPlus"
-            class="theme-label" ojd-button="PLUS">
-                <path inkscape:connector-curvature="0"
-                id="path4731"
-                style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;stroke-width:0.103138"
-                d="m 51.705801,28.690425 v 1.055548 h 1.05152 v 0.475399 h -1.05152 v 1.055548 h -0.479428 v -1.055548 h -1.051519 v -0.475399 h 1.051519 v -1.055548 z" />
-            </g>
+      </g>
+      <g
+         id="g4883"
+         inkscape:label="btnB"
+         class="theme-button"
+         ojd-button="B"
+         transform="matrix(1.5230212,0,0,1.5230212,-39.067383,-11.572084)">
+        <circle
+           r="4.2994785"
+           cy="43.883034"
+           cx="97.423363"
+           id="path3817-5-6-7"
+           style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.111986;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <g
+           transform="translate(0,-2.1166667)"
+           id="text4665-54"
+           style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           aria-label="B"
+           inkscape:label="lblB"
+           class="theme-label"
+           ojd-button="B">
+          <path
+             inkscape:connector-curvature="0"
+             id="path4734"
+             style="font-size:4.23333px;fill:#ffffff;stroke-width:0.264583"
+             d="m 96.7464,46.068947 v 1.13068 h 0.669726 q 0.336931,0 0.498161,-0.138492 0.163298,-0.14056 0.163298,-0.427881 0,-0.289388 -0.163298,-0.425814 -0.16123,-0.138493 -0.498161,-0.138493 z m 0,-1.269173 v 0.930176 h 0.61805 q 0.305924,0 0.454753,-0.113688 0.150895,-0.115756 0.150895,-0.3514 0,-0.233578 -0.150895,-0.349333 -0.148829,-0.115755 -0.454753,-0.115755 z m -0.417546,-0.343131 h 1.066602 q 0.47749,0 0.735872,0.198437 0.258382,0.198438 0.258382,0.564307 0,0.283187 -0.132291,0.450618 -0.132292,0.167432 -0.388607,0.208773 0.307991,0.06615 0.47749,0.276986 0.171566,0.208772 0.171566,0.522965 0,0.413411 -0.28112,0.638721 -0.28112,0.225309 -0.799951,0.225309 h -1.107943 z" />
         </g>
-        <text xml:space="preserve"
-        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.1255px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.103138"
-        x="78.686363" y="31.8568" id="text4641-7" />
-        <g style="display:inline;opacity:1" id="g4858-3"
-        inkscape:label="btnL1" class="theme-button" ojd-button="L"
-        transform="matrix(2.3122452,0,0,2.3122452,-76.238687,-9.6766313)">
-
-            <rect ry="2.271791" y="7.8790512" x="48.108517"
-            height="5.2117558" width="12.962572" id="rect4773-6"
-            style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-            <g aria-label="L2"
-            style="font-style:normal;font-weight:normal;font-size:3.99987px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0999967"
-            id="text4792-7" inkscape:label="lblL1"
-            class="theme-label" ojd-button="L"
-            transform="translate(1.283075)">
-                <path d="m 52.600611,9.0533351 h 0.394519 v 2.5838999 h 1.419875 v 0.33202 h -1.814394 z"
-                style="fill:#ffffff;stroke-width:0.0999967"
-                id="path5003-5" inkscape:connector-curvature="0" />
-            </g>
+      </g>
+      <g
+         id="g4873"
+         inkscape:label="btnX"
+         class="theme-button"
+         ojd-button="X"
+         transform="matrix(1.5230212,0,0,1.5230212,-39.067383,-11.572084)">
+        <circle
+           r="4.2994785"
+           cy="27.913538"
+           cx="97.423363"
+           id="path3817-5-6-2-9-6"
+           style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.111986;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <g
+           transform="translate(0,-2.1166667)"
+           id="text4665-5-4"
+           style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           aria-label="X"
+           inkscape:label="lblX"
+           class="theme-label"
+           ojd-button="X">
+          <path
+             inkscape:connector-curvature="0"
+             id="path4740"
+             style="font-size:4.23333px;fill:#ffffff;stroke-width:0.264583"
+             d="m 96.243076,28.487149 h 0.448551 l 0.766878,1.147216 0.771013,-1.147216 h 0.448551 l -0.992188,1.48208 1.058334,1.604036 h -0.448552 l -0.868164,-1.312581 -0.874365,1.312581 h -0.450618 l 1.101741,-1.647444 z" />
         </g>
-        <g style="display:inline;opacity:1" id="g4863-5"
-        inkscape:label="brnR1" class="theme-button" ojd-button="R"
-        transform="matrix(2.3122452,0,0,2.3122452,-74.888844,-9.6766302)">
-
-            <path style="display:inline;opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-            d="m 71.905195,7.8790507 h 8.41899 c 1.258572,0 2.271791,1.0132188 2.271791,2.2717913 v 0.668174 c 0,1.258572 -1.013219,2.27179 -2.271791,2.27179 h -8.41899 c -1.258573,0 -2.271791,-1.013218 -2.271791,-2.27179 v -0.668174 c 0,-1.2585725 1.013218,-2.2717913 2.271791,-2.2717913 z"
-            id="rect4773-8-6" inkscape:connector-curvature="0" />
-            <g aria-label="R2"
-            style="font-style:normal;font-weight:normal;font-size:3.99987px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0999967"
-            id="text4792-8-2" inkscape:label="lblR1"
-            class="theme-label" ojd-button="R"
-            transform="translate(1.1405111)">
-                <path d="m 75.22124,10.602113 q 0.126949,0.04297 0.246086,0.183587 0.12109,0.140621 0.24218,0.386706 l 0.400377,0.796849 h -0.423814 l -0.373035,-0.748022 q -0.144526,-0.292959 -0.281241,-0.388659 -0.134761,-0.0957 -0.369128,-0.0957 h -0.429674 v 1.232381 H 73.838473 V 9.0533351 h 0.890596 q 0.499983,0 0.746069,0.2089775 0.246086,0.2089776 0.246086,0.6308388 0,0.2753816 -0.128902,0.4570166 -0.126949,0.181634 -0.371082,0.251945 z M 74.232991,9.3775432 v 1.0351228 h 0.496078 q 0.285147,0 0.429673,-0.130855 0.14648,-0.132809 0.14648,-0.3886596 0,-0.255851 -0.14648,-0.3847531 -0.144526,-0.1308551 -0.429673,-0.1308551 z"
-                style="fill:#ffffff;stroke-width:0.0999967"
-                id="path5009-9" inkscape:connector-curvature="0" />
-            </g>
+      </g>
+      <g
+         id="g4868"
+         inkscape:label="btnY"
+         class="theme-button"
+         ojd-button="Y"
+         transform="matrix(1.5230212,0,0,1.5230212,-39.067383,-11.572084)">
+        <circle
+           r="4.2994785"
+           cy="35.85104"
+           cx="88.257439"
+           id="path3817-5-6-2-9-1-1"
+           style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.111986;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <g
+           transform="translate(0,-2.1166667)"
+           id="text4665-3"
+           style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           aria-label="Y"
+           inkscape:label="lblY"
+           class="theme-label"
+           ojd-button="Y">
+          <path
+             inkscape:connector-curvature="0"
+             id="path4743"
+             style="font-size:4.23333px;fill:#ffffff;stroke-width:0.264583"
+             d="m 86.956225,36.424649 h 0.448551 l 0.855762,1.269173 0.84956,-1.269173 h 0.448552 l -1.091407,1.616438 v 1.469678 h -0.419612 v -1.469678 z" />
         </g>
+      </g>
     </g>
+    <circle
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#999999;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3817"
+       cx="26.852058"
+       cy="26.281719"
+       r="16.190598" />
+    <g
+       id="g4900"
+       inkscape:label="btnPlus"
+       class="theme-button"
+       ojd-button="PLUS"
+       transform="matrix(-1.5230212,0,0,1.5230212,130.58923,-35.148123)">
+      <circle
+         r="2.3553126"
+         cy="27.867004"
+         cx="51.466087"
+         id="path4096-29"
+         style="display:inline;opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <g
+         transform="translate(0,-2.1166667)"
+         id="text4641"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.1255px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.103138"
+         aria-label="+"
+         inkscape:label="lblPlus"
+         class="theme-label"
+         ojd-button="PLUS">
+        <path
+           inkscape:connector-curvature="0"
+           id="path4731"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;stroke-width:0.103138"
+           d="m 51.705801,28.690425 v 1.055548 h 1.05152 v 0.475399 h -1.05152 v 1.055548 h -0.479428 v -1.055548 h -1.051519 v -0.475399 h 1.051519 v -1.055548 z" />
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.1255px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.103138"
+       x="78.686363"
+       y="31.8568"
+       id="text4641-7" />
+    <g
+       style="display:inline;opacity:1"
+       id="g4858-3"
+       inkscape:label="btnL1"
+       class="theme-button"
+       ojd-button="L"
+       transform="matrix(2.3122452,0,0,2.3122452,-99.372947,-34.676631)">
+      <rect
+         ry="2.271791"
+         y="7.8790512"
+         x="48.108517"
+         height="5.2117558"
+         width="12.962572"
+         id="rect4773-6"
+         style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <g
+         aria-label="L2"
+         style="font-style:normal;font-weight:normal;font-size:3.99987px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0999967"
+         id="text4792-7"
+         inkscape:label="lblL1"
+         class="theme-label"
+         ojd-button="L"
+         transform="translate(1.283075)">
+        <path
+           d="m 52.600611,9.0533351 h 0.394519 v 2.5838999 h 1.419875 v 0.33202 h -1.814394 z"
+           style="fill:#ffffff;stroke-width:0.0999967"
+           id="path5003-5"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+    <g
+       style="display:inline;opacity:1"
+       id="g4863-5"
+       inkscape:label="brnR1"
+       class="theme-button"
+       ojd-button="R"
+       transform="matrix(2.3122452,0,0,2.3122452,-98.023107,-34.67663)">
+      <path
+         style="display:inline;opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 71.905195,7.8790507 h 8.41899 c 1.258572,0 2.271791,1.0132188 2.271791,2.2717913 v 0.668174 c 0,1.258572 -1.013219,2.27179 -2.271791,2.27179 h -8.41899 c -1.258573,0 -2.271791,-1.013218 -2.271791,-2.27179 v -0.668174 c 0,-1.2585725 1.013218,-2.2717913 2.271791,-2.2717913 z"
+         id="rect4773-8-6"
+         inkscape:connector-curvature="0" />
+      <g
+         aria-label="R2"
+         style="font-style:normal;font-weight:normal;font-size:3.99987px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0999967"
+         id="text4792-8-2"
+         inkscape:label="lblR1"
+         class="theme-label"
+         ojd-button="R"
+         transform="translate(1.1405111)">
+        <path
+           d="m 75.22124,10.602113 q 0.126949,0.04297 0.246086,0.183587 0.12109,0.140621 0.24218,0.386706 l 0.400377,0.796849 h -0.423814 l -0.373035,-0.748022 q -0.144526,-0.292959 -0.281241,-0.388659 -0.134761,-0.0957 -0.369128,-0.0957 h -0.429674 v 1.232381 H 73.838473 V 9.0533351 h 0.890596 q 0.499983,0 0.746069,0.2089775 0.246086,0.2089776 0.246086,0.6308388 0,0.2753816 -0.128902,0.4570166 -0.126949,0.181634 -0.371082,0.251945 z M 74.232991,9.3775432 v 1.0351228 h 0.496078 q 0.285147,0 0.429673,-0.130855 0.14648,-0.132809 0.14648,-0.3886596 0,-0.255851 -0.14648,-0.3847531 -0.144526,-0.1308551 -0.429673,-0.1308551 z"
+           style="fill:#ffffff;stroke-width:0.0999967"
+           id="path5009-9"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+  </g>
 </svg>
