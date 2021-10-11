@@ -117,6 +117,7 @@ name = "mysplit"
 version = "0.1.0"
 dependencies = [
  "nix",
+ "num-bytes",
  "sysinfo",
 ]
 
@@ -141,6 +142,12 @@ checksum = "3f6bb902e437b6d86e03cce10a7e2af662292c5dfef23b65899ea3ac9354ad44"
 dependencies = [
  "winapi",
 ]
+
+[[package]]
+name = "num-bytes"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "937db14f15af519f544002073ec41aef05b8a7933694144e9c938bc5282140e5"
 
 [[package]]
 name = "num_cpus"
