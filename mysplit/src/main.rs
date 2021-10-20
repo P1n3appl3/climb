@@ -2,10 +2,22 @@
 use nix::sys::uio::{self, IoVec, RemoteIoVec};
 use nix::unistd::Pid;
 use num_bytes::FromBytes;
+use std::borrow::BorrowMut;
+use std::cell::RefCell;
+use std::collections::HashSet;
 use std::{ffi::CString, mem, ptr, slice, thread, time};
 use sysinfo::{ProcessExt, System, SystemExt};
 
+thread_local! {
+    static ACCESS: RefCell<HashSet<u64>> = RefCell::new(HashSet::new());
+    static TOTAL: RefCell<u64> = RefCell::new(0);
+}
+
 fn read_mem(pid: Pid, base: u64, len: u64, buf: &mut [u8]) -> nix::Result<usize> {
+    // println!("0x{:X} : {}", base, len);
+    let page = base % 4096;
+    TOTAL.with(|t| *t.borrow_mut() += 1);
+    ACCESS.with(|a| a.borrow_mut().insert(page));
     let local = IoVec::from_mut_slice(buf);
     let remote = RemoteIoVec {
         base: base as usize,
@@ -172,7 +184,7 @@ fn read_boxed_string(pid: Pid, instance: u64) -> String {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, Default)]
 struct AutoSplitterInfo {
     level: u64,
     chapter: i32,
@@ -190,6 +202,160 @@ struct AutoSplitterInfo {
     file_hearts: i32,
 }
 
+#[derive(Copy, Clone, Debug)]
+struct Celeste {
+    pid: Pid,
+    instance: u64,
+    save_data_class: u64,
+    engine_class: u64,
+    level_class: u64,
+    info: u64,
+    prev_save: u64,
+    mode_stats: u64,
+}
+
+impl Celeste {
+    fn load_from_process(pid: Pid) -> Result<Self, &'static str> {
+        // let root_domain_addr = 0xA17650;
+        // let root_domain = read(pid, root_domain_addr);
+        let domain_list_addr = 0xA17698;
+        let domain_list = read(pid, domain_list_addr);
+        let first_domain: u64 = read(pid, domain_list);
+        let second_domain: u64 = read(pid, domain_list + 8);
+        let first_name = if first_domain != 0 {
+            read_string(pid, read(pid, first_domain + 0xd8))
+        } else {
+            String::new()
+        };
+        if first_name != "Celeste.exe" {
+            return Err("This is not Celeste!");
+        }
+        let celeste_domain = if second_domain != 0 {
+            // let second_name = read_string(pid, read(pid, first_domain + 0xd8));
+            // println!("Connected to: {}", second_name);
+            second_domain
+        } else {
+            // println!("Connected to: {}", first_name);
+            first_domain
+        };
+
+        let assembly: u64 = read(pid, celeste_domain + 0xd0);
+        let image: u64 = read(pid, assembly + 0x60);
+        let class_cache = image + 1216;
+        let celeste_class = lookup_class(pid, class_cache, "Celeste");
+        let celeste_instance = static_field(pid, celeste_class, "Instance");
+        Ok(Celeste {
+            pid,
+            instance: celeste_instance,
+            save_data_class: lookup_class(pid, class_cache, "SaveData"),
+            engine_class: lookup_class(pid, class_cache, "Engine"),
+            level_class: lookup_class(pid, class_cache, "Level"),
+            info: locate_splitter_info(pid, celeste_instance),
+            prev_save: 0,
+            mode_stats: 0,
+        })
+    }
+
+    fn update(&mut self) -> nix::Result<Info> {
+        let info_size = mem::size_of::<AutoSplitterInfo>();
+        let mut buf = vec![0u8; info_size];
+        read_mem(self.pid, self.info, info_size as u64, &mut buf)?;
+        let asi: AutoSplitterInfo = unsafe { ptr::read(buf.as_ptr() as *const _) };
+
+        let current_level = if asi.level != 0 {
+            read_boxed_string(self.pid, asi.level)
+        } else {
+            String::new()
+        };
+
+        let mut death_count = 0;
+        let mut checkpoint = 0;
+
+        let save_addr = static_field(self.pid, self.save_data_class, "Instance");
+        if save_addr != 0 {
+            if save_addr != self.prev_save {
+                thread::sleep(time::Duration::from_secs(1));
+                self.prev_save = save_addr;
+                self.mode_stats = 0;
+                return self.update();
+            }
+            death_count = instance_field(self.pid, save_addr, "TotalDeaths");
+            if asi.chapter == -1 {
+                self.mode_stats = 0;
+            } else if self.mode_stats == 0 {
+                let areas_obj: u64 = instance_field(self.pid, save_addr, "Areas");
+                let size: u32 = instance_field(self.pid, areas_obj, "_size");
+                let areas_arr: u64 = if size == 11 {
+                    // println!("Passed");
+                    instance_field(self.pid, areas_obj, "_items")
+                } else {
+                    // println!("Failed");
+                    0
+                };
+                if areas_arr != 0 {
+                    // println!("Areas arr: {:x}", areas_arr);
+                    let area_stats: u64 =
+                        read(self.pid, areas_arr + 0x20 + asi.chapter as u64 * 8);
+                    // println!("Area stats: {:x}", area_stats);
+                    let mode_arr =
+                        instance_field::<u64, 8>(self.pid, area_stats, "Modes") + 0x20;
+                    self.mode_stats = read(self.pid, mode_arr + asi.mode as u64 * 8);
+                }
+            }
+            // println!("Mode stats: {:x}", self.mode_stats);
+            if self.mode_stats != 0 {
+                let checkpoints_obj =
+                    instance_field(self.pid, self.mode_stats, "Checkpoints");
+                // println!("checkpoint obj: {:x}", checkpoints_obj);
+                checkpoint = instance_field(self.pid, checkpoints_obj, "_count");
+            }
+        }
+
+        let in_cutscene = if asi.chapter != -1 {
+            if !asi.chapter_started || asi.chapter_complete {
+                true
+            } else {
+                let scene = read(
+                    self.pid,
+                    self.instance
+                        + class_field_offset(self.pid, self.engine_class, "scene") as u64,
+                );
+                if instance_class(self.pid, scene) != self.level_class {
+                    false
+                } else {
+                    let byte: u8 = read(
+                        self.pid,
+                        scene
+                            + class_field_offset(self.pid, self.level_class, "InCutscene")
+                                as u64,
+                    );
+                    byte != 0
+                }
+            }
+        } else {
+            false
+        };
+
+        Ok(Info {
+            asi,
+            death_count,
+            checkpoint,
+            in_cutscene,
+            current_level,
+        })
+    }
+}
+
+#[allow(unused)]
+#[derive(Clone, Debug, Default)]
+struct Info {
+    asi: AutoSplitterInfo,
+    death_count: u32,
+    checkpoint: u32,
+    in_cutscene: bool,
+    current_level: String,
+}
+
 fn main() -> Result<(), &'static str> {
     let s = System::new_all();
     let candidates = s.process_by_name("Celeste.bin.x86");
@@ -201,127 +367,23 @@ fn main() -> Result<(), &'static str> {
         }?
         .pid(),
     );
-
     println!("Found celeste process: {}", pid);
 
-    // let root_domain_addr = 0xA17650;
-    // let root_domain = read(pid, root_domain_addr);
-    let domain_list_addr = 0xA17698;
-    let domain_list = read(pid, domain_list_addr);
-    let first_domain: u64 = read(pid, domain_list);
-    let second_domain: u64 = read(pid, domain_list + 8);
-    let first_name = if first_domain != 0 {
-        read_string(pid, read(pid, first_domain + 0xd8))
-    } else {
-        String::new()
-    };
-    if first_name != "Celeste.exe" {
-        return Err("This is not Celeste!");
-    }
-    let celeste_domain = if second_domain != 0 {
-        // let second_name = read_string(pid, read(pid, first_domain + 0xd8));
-        // println!("Connected to: {}", second_name);
-        second_domain
-    } else {
-        // println!("Connected to: {}", first_name);
-        first_domain
-    };
-
-    let assembly: u64 = read(pid, celeste_domain + 0xd0);
-    let image: u64 = read(pid, assembly + 0x60);
-    let class_cache = image + 1216;
-    let celeste_class = lookup_class(pid, class_cache, "Celeste");
-    let save_data = lookup_class(pid, class_cache, "SaveData");
-    let engine = lookup_class(pid, class_cache, "Engine");
-    let level = lookup_class(pid, class_cache, "Level");
-    let celeste_instance = static_field(pid, celeste_class, "Instance");
-    let info_addr = locate_splitter_info(pid, celeste_instance);
-    let info_size = mem::size_of::<AutoSplitterInfo>();
-    let mut buf = vec![0u8; info_size];
-    let mut prev_save = 0;
-    let mut mode_stats = 0;
-    let mut death_count: u32 = 0;
-    let mut checkpoint: u32 = 0;
+    let mut celeste = Celeste::load_from_process(pid)?;
     loop {
-        thread::sleep(time::Duration::from_millis(500));
-
-        if read_mem(pid, info_addr, info_size as u64, &mut buf).is_err() {
-            break;
-        }
-        let asi: AutoSplitterInfo = unsafe { ptr::read(buf.as_ptr() as *const _) };
-
-        let current_level = if asi.level != 0 {
-            read_boxed_string(pid, asi.level)
-        } else {
-            String::new()
-        };
-
-        let save_addr = static_field(pid, save_data, "Instance");
-        if save_addr != 0 {
-            if save_addr != prev_save {
-                thread::sleep(time::Duration::from_secs(2));
-                prev_save = save_addr;
-                mode_stats = 0;
-                continue;
-            }
-            death_count = instance_field(pid, save_addr, "TotalDeaths");
-            if asi.chapter == -1 {
-                mode_stats = 0;
-            } else if mode_stats == 0 {
-                let areas_obj: u64 = instance_field(pid, save_addr, "Areas");
-                let size: u32 = instance_field(pid, areas_obj, "_size");
-                let areas_arr: u64 = if size == 11 {
-                    // println!("Passed");
-                    instance_field(pid, areas_obj, "_items")
-                } else {
-                    // println!("Failed");
-                    0
-                };
-                if areas_arr != 0 {
-                    // println!("Areas arr: {:x}", areas_arr);
-                    let area_stats: u64 =
-                        read(pid, areas_arr + 0x20 + asi.chapter as u64 * 8);
-                    // println!("Area stats: {:x}", area_stats);
-                    let mode_arr =
-                        instance_field::<u64, 8>(pid, area_stats, "Modes") + 0x20;
-                    mode_stats = read(pid, mode_arr + asi.mode as u64 * 8);
-                }
-            }
-            // println!("Mode stats: {:x}", mode_stats);
-            if mode_stats != 0 {
-                let checkpoints_obj = instance_field(pid, mode_stats, "Checkpoints");
-                // println!("checkpoint obj: {:x}", checkpoints_obj);
-                checkpoint = instance_field(pid, checkpoints_obj, "_count");
-            }
-        }
-
-        let in_cutscene = if asi.chapter != -1 {
-            if !asi.chapter_started || asi.chapter_complete {
-                true
-            } else {
-                let scene = read(
-                    pid,
-                    celeste_instance + class_field_offset(pid, engine, "scene") as u64,
-                );
-                if instance_class(pid, scene) != level {
-                    false
-                } else {
-                    let byte: u8 = read(
-                        pid,
-                        scene + class_field_offset(pid, level, "InCutscene") as u64,
-                    );
-                    byte != 0
-                }
-            }
-        } else {
-            false
-        };
-
-        dbg!(in_cutscene);
-        dbg!(checkpoint);
-        dbg!(death_count);
-        dbg!(current_level);
-        dbg!(asi.file_time);
+        thread::sleep(time::Duration::from_millis(100));
+        let _info = celeste.update().unwrap();
+        let mut total = 0;
+        let mut count = 0;
+        TOTAL.with(|t| {
+            total = *t.borrow();
+            *t.borrow_mut() = 0
+        });
+        ACCESS.with(|a| {
+            count = a.borrow().len();
+            a.borrow_mut().clear()
+        });
+        println!("{} / {}", count, total);
+        // dbg!(info);
     }
-    Ok(())
 }
