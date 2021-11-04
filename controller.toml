@@ -1,0 +1,24 @@
+inactive = "#303030aa"
+active = "#c0c0c0aa"
+outline = "#101010aa"
+
+button_shape = { radius = 25 }
+outline_weight = 3.5
+
+buttons = [
+  { id = 2, pos = [350, 200] },                                           # A
+  { id = 1, pos = [300, 250] },                                           # B
+  { id = 3, pos = [300, 150] },                                           # X
+  { id = 0, pos = [250, 200] },                                           # Y
+  { id = 6, pos = [40, 50], shape = { size = [120, 50], radius = 20 } },  # LT
+  { id = 7, pos = [240, 50], shape = { size = [120, 50], radius = 20 } }, # RT
+  { id = 9, pos = [200, 140], shape = { radius = 12 } },                  # +
+]
+
+[[sticks]] # left
+axes = [0, 1]
+pos = [100, 200]
+radius = 45
+gate_weight = 6
+displacement = 50
+gate_radius = 70
