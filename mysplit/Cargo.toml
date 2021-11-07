@@ -1,9 +1,0 @@
-[package]
-name = "mysplit"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-nix = "0.23.0"
-num-bytes = "0.4.0"
-sysinfo = "0.20.4"
