@@ -1,0 +1,197 @@
+{
+    "components": [
+        {
+            "Title": {
+                "background": "Transparent",
+                "text_color": null,
+                "show_game_name": true,
+                "show_category_name": true,
+                "show_finished_runs_count": false,
+                "show_attempt_count": true,
+                "text_alignment": "Center",
+                "display_as_single_line": false,
+                "display_game_icon": true,
+                "show_region": false,
+                "show_platform": false,
+                "show_variables": true
+            }
+        },
+        {
+            "Splits": {
+                "background": {
+                    "Same": "Transparent"
+                },
+                "visual_split_count": 16,
+                "split_preview_count": 1,
+                "show_thin_separators": false,
+                "separator_last_split": false,
+                "always_show_last_split": false,
+                "fill_with_blank_space": false,
+                "display_two_rows": false,
+                "current_split_gradient": {
+                    "Vertical": [
+                        [
+                            0.20000002,
+                            0.45098042,
+                            0.9568628,
+                            1
+                        ],
+                        [
+                            0.08235294,
+                            0.20784315,
+                            0.454902,
+                            1
+                        ]
+                    ]
+                },
+                "split_time_accuracy": "Seconds",
+                "segment_time_accuracy": "Seconds",
+                "delta_time_accuracy": "Tenths",
+                "delta_drop_decimals": true,
+                "show_column_labels": false,
+                "columns": [
+                    {
+                        "name": "Time",
+                        "start_with": "ComparisonTime",
+                        "update_with": "SplitTime",
+                        "update_trigger": "Contextual",
+                        "comparison_override": null,
+                        "timing_method": "GameTime"
+                    },
+                    {
+                        "name": "+/-",
+                        "start_with": "Empty",
+                        "update_with": "Delta",
+                        "update_trigger": "Contextual",
+                        "comparison_override": null,
+                        "timing_method": "GameTime"
+                    }
+                ]
+            }
+        },
+        {
+            "CurrentComparison": {
+                "background": "Transparent",
+                "display_two_rows": false,
+                "label_color": null,
+                "value_color": null
+            }
+        },
+        {
+            "SumOfBest": {
+                "background": "Transparent",
+                "display_two_rows": false,
+                "label_color": null,
+                "value_color": null,
+                "accuracy": "Seconds"
+            }
+        },
+        {
+            "Timer": {
+                "background": "Transparent",
+                "timing_method": "GameTime",
+                "height": 50,
+                "color_override": null,
+                "show_gradient": true,
+                "digits_format": "SingleDigitSeconds",
+                "accuracy": "Hundredths",
+                "is_segment_timer": false
+            }
+        }
+    ],
+    "general": {
+        "direction": "Vertical",
+        "timer_font": {
+            "family": "Tahoma",
+            "style": "normal",
+            "weight": "bold",
+            "stretch": "normal"
+        },
+        "times_font": {
+            "family": "Tahoma",
+            "style": "normal",
+            "weight": "bold",
+            "stretch": "normal"
+        },
+        "text_font": {
+            "family": "Tahoma",
+            "style": "normal",
+            "weight": "normal",
+            "stretch": "normal"
+        },
+        "background": {
+            "Plain": [
+                0.058823533,
+                0.058823533,
+                0.058823533,
+                1
+            ]
+        },
+        "best_segment_color": [
+            0.8470589,
+            0.6862745,
+            0.121568635,
+            1
+        ],
+        "ahead_gaining_time_color": [
+            0,
+            0.8000001,
+            0.21176472,
+            1
+        ],
+        "ahead_losing_time_color": [
+            0.32156864,
+            0.8000001,
+            0.45098042,
+            1
+        ],
+        "behind_gaining_time_color": [
+            0.8000001,
+            0.36078432,
+            0.32156864,
+            1
+        ],
+        "behind_losing_time_color": [
+            0.8000001,
+            0.07058824,
+            0,
+            1
+        ],
+        "not_running_color": [
+            0.6745098,
+            0.6745098,
+            0.6745098,
+            1
+        ],
+        "personal_best_color": [
+            0.08627451,
+            0.6509804,
+            1,
+            1
+        ],
+        "paused_color": [
+            0.4784314,
+            0.4784314,
+            0.4784314,
+            1
+        ],
+        "thin_separators_color": [
+            1,
+            1,
+            1,
+            0.07897232
+        ],
+        "separators_color": [
+            1,
+            1,
+            1,
+            0.32670057
+        ],
+        "text_color": [
+            1,
+            1,
+            1,
+            1
+        ]
+    }
+}
