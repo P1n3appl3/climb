@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 bytemuck = "1.7.2"
-livesplit-wrapper = {path = "../livesplit-wrapper"}
+livesplit-wrapper = {git = "https://github.com/P1n3appl3/livesplit-wrapper"}
 
 [dev-dependencies]
 num-bytes = "0.4.0"
