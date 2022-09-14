@@ -4,16 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-bytemuck = "1.7.2"
 livesplit-wrapper = { path = "../../livesplit-wrapper" }
-
-[dev-dependencies]
-num-bytes = "0.4"
-nix = "0.23"
-sysinfo = "0.20"
-
-[[example]]
-name = "debug"
 
 [lib]
 crate-type = ["cdylib"]

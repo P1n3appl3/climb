@@ -1,0 +1,10 @@
+[package]
+name = "auto-splitter-prototype"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+num-bytes = "0.4"
+nix = "0.23"
+sysinfo = "0.20"
+

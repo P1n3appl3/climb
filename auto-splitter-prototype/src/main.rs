@@ -1,10 +1,6 @@
-#![feature(cstring_from_vec_with_nul)]
 use nix::sys::uio::{self, IoVec, RemoteIoVec};
 use nix::unistd::Pid;
 use num_bytes::FromBytes;
-use std::borrow::BorrowMut;
-use std::cell::RefCell;
-use std::collections::HashSet;
 use std::{ffi::CString, mem, ptr, slice, thread, time};
 use sysinfo::{ProcessExt, System, SystemExt};
 
@@ -84,12 +80,12 @@ fn class_static_fields(pid: Pid, class: u64) -> Option<u64> {
 #[allow(unused)]
 #[repr(u8)]
 enum MonoKind {
-    MonoClassDef = 1, // non-generic type
-    MonoClassGtd,     // generic type definition
-    MonoClassGinst,   // generic instantiation
-    MonoClassGparam,  // generic parameter
-    MonoClassArray,   // vector or array, bounded or not
-    MonoClassPointer, // pointer of function pointer
+    Def = 1, // non-generic type
+    Gtd,     // generic type definition
+    Ginst,   // generic instantiation
+    Gparam,  // generic parameter
+    Array,   // vector or array, bounded or not
+    Pointer, // pointer of function pointer
 }
 
 #[derive(Default, Copy, Clone)]
@@ -105,10 +101,10 @@ fn class_field_offset(pid: Pid, class: u64, name: &str) -> Option<u32> {
     let kind = class_kind(pid, class)?;
     use MonoKind::*;
     match kind {
-        MonoClassGinst => {
+        Ginst => {
             return class_field_offset(pid, read(pid, read(pid, class + 0xe0)?)?, name);
         }
-        MonoClassDef | MonoClassGtd => {}
+        Def | Gtd => {}
         _ => {
             panic!("Something is wrong")
         }
@@ -383,7 +379,7 @@ fn main() -> Result<(), &'static str> {
             }
         };
         let mut diff = vec![];
-        let file_time = (info.asi.file_time / 10000) as f32 / 1000.0;
+        let _file_time = (info.asi.file_time / 10000) as f32 / 1000.0;
         let chapter_time = (info.asi.chapter_time / 10000) as f32 / 1000.0;
         if old.asi.timer_active != info.asi.timer_active {
             diff.push(format!("timer_active={}", info.asi.timer_active));
@@ -421,7 +417,7 @@ fn main() -> Result<(), &'static str> {
         if old.current_level != info.current_level {
             diff.push(format!("room='{}'", info.current_level));
         }
-        if diff.len() > 0 {
+        if !diff.is_empty() {
             println!("Time: {}", chapter_time);
             println!("Updates: {}", diff.join(" "));
         }
