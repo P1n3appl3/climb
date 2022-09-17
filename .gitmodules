@@ -1,3 +1,6 @@
 [submodule "obs-gamepad"]
-	path = obs-gamepad
-	url = https://github.com/p1n3appl3/obs-gamepad
+	path = obs-livesplit
+	url = git@github.com:P1n3appl3/obs-gamepad.git
+[submodule "obs-livesplit"]
+	path = obs-livesplit
+	url = git@github.com:P1n3appl3/obs-livesplit.git
