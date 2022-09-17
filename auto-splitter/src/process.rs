@@ -1,6 +1,7 @@
 use std::{mem, slice};
 
-use livesplit_wrapper::{Process, Pod};
+use livesplit_wrapper::{Pod, Process};
+use log::error;
 
 #[allow(unused)]
 #[repr(u8)]
@@ -48,7 +49,8 @@ impl CelesteProcess for Process {
                 class = self.read(class + 0xf8).ok()?;
             }
         }
-        panic!("Couldn't find class: {}", name)
+        error!("Couldn't find class: {}", name);
+        None
     }
 
     fn class_kind(&self, class: u64) -> Option<MonoKind> {
@@ -70,7 +72,8 @@ impl CelesteProcess for Process {
                 return self.read(vtable + 64 + 8 * vtable_size as u64).ok();
             }
         }
-        panic!("Requested class isn't loaded");
+        error!("Requested class isn't loaded");
+        None
     }
 
     fn class_field_offset(&self, class: u64, name: &str) -> Option<u32> {
@@ -83,7 +86,8 @@ impl CelesteProcess for Process {
             }
             Def | Gtd => {}
             _ => {
-                panic!("Something is wrong")
+                error!("Class field is wrong type");
+                return None;
             }
         };
         let num_fields: u32 = self.read(class + 0xf0).ok()?;
@@ -101,8 +105,10 @@ impl CelesteProcess for Process {
                 return Some(field.offset);
             }
         }
-        panic!("Tried to lookup a nonexistent field: {}", name);
+        error!("Tried to lookup a nonexistent field: {}", name);
+        None
     }
+
     fn instance_class(&self, instance: u64) -> Option<u64> {
         self.read(self.read(instance & !1).ok()?).ok()
     }

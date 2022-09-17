@@ -5,10 +5,12 @@ edition = "2021"
 
 [dependencies]
 livesplit-wrapper = { path = "../../livesplit-wrapper" }
+log = "0.4"
 
 [lib]
 crate-type = ["cdylib"]
 
 [profile.release]
 lto = true
+# strip = true
 panic = "abort"

@@ -3,6 +3,7 @@ mod process;
 use std::{mem, ptr};
 
 use livesplit_wrapper::{HostFunctions, Process, Splitter};
+use log::{info, warn};
 
 use process::CelesteProcess;
 
@@ -10,6 +11,7 @@ use process::CelesteProcess;
 struct MySplitter {
     state: Option<Celeste>,
     old_info: Option<Info>,
+    was_connected: bool,
 }
 
 #[allow(unused)]
@@ -22,7 +24,8 @@ struct Info {
     current_level: String,
 }
 
-// unfortunately can't use Pod to read this because it has bools and padding bytes
+// unfortunately can't use Pod to read this because it has bools and padding
+// bytes
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default)]
 struct AutoSplitterInfo {
@@ -74,7 +77,8 @@ impl Celeste {
             if save_addr != self.prev_save {
                 self.prev_save = save_addr;
                 self.mode_stats = 0;
-                todo!();
+                warn!("changed saves");
+                return None;
             }
             death_count = self.proc.instance_field(save_addr, "TotalDeaths")?;
             if asi.chapter == -1 {
@@ -134,15 +138,16 @@ impl MySplitter {
     fn try_init(&mut self) -> Option<()> {
         let proc = self.attach("Celeste.bin.x86")?;
         let domain_list_addr = 0xA17698;
-        let first_domain: u64 = proc.read(domain_list_addr).ok()?;
-        let second_domain: u64 = proc.read(domain_list_addr + 8).ok()?;
+        let domain_list = proc.read(domain_list_addr).ok()?;
+        let first_domain: u64 = proc.read(domain_list).ok()?;
+        let second_domain: u64 = proc.read(domain_list + 8).ok()?;
         let first_name = if first_domain != 0 {
-            proc.read_cstr(proc.read(first_domain + 0xd8).ok()?).ok()?
+            let strloc = proc.read(first_domain + 0xd8).ok()?;
+            proc.read_cstr(strloc).ok()?
         } else {
             String::new()
         };
         if first_name != "Celeste.exe" {
-            self.print("this process isn't celeste");
             return None;
         }
 
@@ -178,15 +183,19 @@ impl MySplitter {
 livesplit_wrapper::register_autosplitter!(MySplitter);
 impl Splitter for MySplitter {
     fn new() -> Self {
-        let s = MySplitter::default();
-        s.set_variable("deaths", "0");
-        s.set_variable("strawberries", "0");
+        let s = MySplitter {
+            was_connected: true,
+            ..Default::default()
+        };
+        s.set_variable("deaths", "💀 0");
+        s.set_variable("strawberries", "🍓 0");
         s.set_tick_rate(10.0);
         s
     }
 
     fn update(&mut self) {
         if let Some(s) = &mut self.state {
+            self.was_connected = true;
             let new_info = s.update();
             match (self.old_info.clone(), new_info) {
                 (Some(old), Some(info)) => {
@@ -230,16 +239,17 @@ impl Splitter for MySplitter {
                         diff.push(format!("room='{}'", info.current_level));
                     }
                     if !diff.is_empty() {
-                        self.print(&format!("{} : {}", chapter_time, diff.join(" ")));
+                        info!("{} : {}", chapter_time, diff.join(" "));
                     }
                     self.old_info = Some(info);
                 }
                 (None, Some(new)) => self.old_info = Some(new),
-                (Some(_old), None) => self.print("failed a read, will retry next step"),
+                (Some(_old), None) => info!("failed a read, will retry next step"),
                 _ => {}
             }
-        } else if self.try_init().is_none() {
-            self.print("failed to connect to Celeste");
+        } else if self.try_init().is_none() && self.was_connected {
+            self.was_connected = false;
+            warn!("failed to connect to Celeste");
         }
     }
 }
