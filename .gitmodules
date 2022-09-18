@@ -1,5 +1,5 @@
 [submodule "obs-gamepad"]
-	path = obs-livesplit
+	path = obs-gamepad
 	url = git@github.com:P1n3appl3/obs-gamepad.git
 [submodule "obs-livesplit"]
 	path = obs-livesplit
