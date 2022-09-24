@@ -1,9 +1,9 @@
 mod process;
 
-use std::{mem, ptr};
+use std::{mem, ptr, time::Duration};
 
 use livesplit_wrapper::{HostFunctions, Process, Splitter};
-use log::{info, warn};
+use log::*;
 
 use process::CelesteProcess;
 
@@ -12,6 +12,45 @@ struct MySplitter {
     state: Option<Celeste>,
     old_info: Option<Info>,
     was_connected: bool,
+    current_split: Split,
+    failed_reads: u32,
+}
+
+#[derive(Copy, Clone, PartialEq, Eq, Debug, Default)]
+enum Split {
+    #[default]
+    Start,
+    Prologue,
+    City,
+    Site,
+    Resort,
+    Ridge,
+    Cassette,
+    Temple,
+    Reflection,
+    Summit2500M,
+    Summit,
+    End,
+}
+
+impl Split {
+    fn next(self) -> Self {
+        use Split::*;
+        match self {
+            Start => Prologue,
+            Prologue => City,
+            City => Site,
+            Site => Resort,
+            Resort => Ridge,
+            Ridge => Cassette,
+            Cassette => Temple,
+            Temple => Reflection,
+            Reflection => Summit2500M,
+            Summit2500M => Summit,
+            Summit => End,
+            End => End,
+        }
+    }
 }
 
 #[allow(unused)]
@@ -21,16 +60,27 @@ struct Info {
     death_count: u32,
     checkpoint: u32,
     in_cutscene: bool,
-    current_level: String,
+    room: String,
 }
 
-// unfortunately can't use Pod to read this because it has bools and padding
-// bytes
+impl Info {
+    fn file_time(&self) -> Duration {
+        Duration::from_millis(self.asi.file_time as u64 / 10000)
+    }
+
+    #[allow(unused)]
+    fn chapter_time(&self) -> Duration {
+        Duration::from_millis(self.asi.chapter_time as u64 / 10000)
+    }
+}
+
+// can't use Pod to read this because it has bools and padding bytes
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default)]
 struct AutoSplitterInfo {
     level: u64,
     chapter: i32,
+    /// 0/1/2 corrresponding to A/B/C sides
     mode: i32,
     timer_active: bool,
     chapter_started: bool,
@@ -63,7 +113,7 @@ impl Celeste {
         self.proc.read_into_buf(self.info, &mut buf).ok()?;
         let asi: AutoSplitterInfo = unsafe { ptr::read(buf.as_ptr() as *const _) };
 
-        let current_level = if asi.level != 0 {
+        let room = if asi.level != 0 {
             self.proc.read_boxed_string(asi.level)?
         } else {
             String::new()
@@ -129,7 +179,7 @@ impl Celeste {
             death_count,
             checkpoint,
             in_cutscene,
-            current_level,
+            room,
         })
     }
 }
@@ -178,6 +228,49 @@ impl MySplitter {
         });
         Some(())
     }
+
+    fn debug_state(&self, old: &Info, new: &Info) {
+        let mut diff = Vec::new();
+        if old.asi.timer_active != new.asi.timer_active {
+            diff.push(format!("timer={}", new.asi.timer_active));
+        }
+        if old.asi.chapter != new.asi.chapter {
+            diff.push(format!("chapter={}", new.asi.chapter));
+        }
+        if old.asi.mode != new.asi.mode {
+            diff.push(format!("mode={}", new.asi.mode));
+        }
+        if old.asi.chapter_started != new.asi.chapter_started {
+            diff.push(format!("start={}", new.asi.chapter_started));
+        }
+        if old.asi.chapter_complete != new.asi.chapter_complete {
+            diff.push(format!("finish={}", new.asi.chapter_complete));
+        }
+        if old.asi.file_cassettes != new.asi.file_cassettes {
+            diff.push(format!("📼={}", new.asi.file_cassettes));
+        }
+        if old.asi.file_hearts != new.asi.file_hearts {
+            diff.push(format!("💙={}", new.asi.file_hearts));
+        }
+        if old.in_cutscene != new.in_cutscene {
+            diff.push(format!("🎬={}", new.in_cutscene));
+        }
+        if old.checkpoint != new.checkpoint {
+            diff.push(format!("🚩={}", new.checkpoint));
+        }
+        if old.room != new.room {
+            diff.push(format!("room='{}'", new.room));
+        }
+        if !diff.is_empty() {
+            info!(
+                "{:>04}:{:02} {:?} {}",
+                new.file_time().as_secs() / 60,
+                new.file_time().as_secs() % 60,
+                self.current_split,
+                diff.join(" ")
+            );
+        }
+    }
 }
 
 livesplit_wrapper::register_autosplitter!(MySplitter);
@@ -187,9 +280,8 @@ impl Splitter for MySplitter {
             was_connected: true,
             ..Default::default()
         };
-        s.set_variable("deaths", "💀 0");
-        s.set_variable("strawberries", "🍓 0");
-        s.set_tick_rate(10.0);
+        s.set_variable("Deaths", "0");
+        s.set_tick_rate(60.0);
         s
     }
 
@@ -198,53 +290,65 @@ impl Splitter for MySplitter {
             self.was_connected = true;
             let new_info = s.update();
             match (self.old_info.clone(), new_info) {
-                (Some(old), Some(info)) => {
-                    let mut diff = vec![];
-                    let _file_time = (info.asi.file_time / 10000) as f32 / 1000.0;
-                    let chapter_time = (info.asi.chapter_time / 10000) as f32 / 1000.0;
-                    if old.asi.timer_active != info.asi.timer_active {
-                        diff.push(format!("timer_active={}", info.asi.timer_active));
+                (Some(old), Some(new)) => {
+                    // Reset trigger
+                    if new.asi.chapter == 0
+                        && new.room == "0"
+                        && new.asi.chapter_started
+                        && !old.asi.chapter_started
+                        && new.file_time() < Duration::from_secs(1)
+                    {
+                        self.reset();
+                        self.start();
+                        self.current_split = Split::Prologue;
                     }
-                    if old.asi.chapter != info.asi.chapter {
-                        diff.push(format!("chapter={}", info.asi.chapter));
+
+                    // Set game time and handle pausing
+                    if new.asi.chapter_started {
+                        self.set_game_time(new.file_time());
+                        if !old.asi.chapter_started {
+                            self.unpause();
+                        }
+                    } else if old.asi.chapter_started {
+                        self.pause();
                     }
-                    if old.asi.mode != info.asi.mode {
-                        diff.push(format!("mode={}", info.asi.mode));
+
+                    use Split::*;
+                    let finished_chapter = old.asi.chapter_complete && !new.asi.chapter_complete;
+                    if match self.current_split {
+                        Start | End => false,
+                        Prologue | City | Site | Resort | Ridge | Reflection | Summit => {
+                            finished_chapter
+                        }
+                        Cassette => new.asi.file_cassettes == 1 && !new.asi.chapter_started,
+                        Temple => new.asi.file_hearts == 1 && !new.asi.chapter_started,
+                        Summit2500M => new.checkpoint == 6,
+                    } {
+                        self.split();
+                        self.current_split = self.current_split.next();
                     }
-                    if old.asi.chapter_started != info.asi.chapter_started {
-                        diff.push(format!("start_level={}", info.asi.chapter_started));
+
+                    if old.death_count != new.death_count {
+                        self.set_variable("Deaths", &new.death_count.to_string())
                     }
-                    if old.asi.chapter_complete != info.asi.chapter_complete {
-                        diff.push(format!("end_level={}", info.asi.chapter_complete));
-                    }
-                    if old.asi.file_strawberries != info.asi.file_strawberries {
-                        diff.push(format!("🍓={}", info.asi.file_strawberries));
-                    }
-                    if old.asi.file_cassettes != info.asi.file_cassettes {
-                        diff.push(format!("📼={}", info.asi.file_cassettes));
-                    }
-                    if old.asi.file_hearts != info.asi.file_hearts {
-                        diff.push(format!("💙={}", info.asi.file_hearts));
-                    }
-                    if old.death_count != info.death_count {
-                        diff.push(format!("💀={}", info.death_count));
-                    }
-                    if old.in_cutscene != info.in_cutscene {
-                        diff.push(format!("🎬={}", info.in_cutscene));
-                    }
-                    if old.checkpoint != info.checkpoint {
-                        diff.push(format!("🚩={}", info.checkpoint));
-                    }
-                    if old.current_level != info.current_level {
-                        diff.push(format!("room='{}'", info.current_level));
-                    }
-                    if !diff.is_empty() {
-                        info!("{} : {}", chapter_time, diff.join(" "));
-                    }
-                    self.old_info = Some(info);
+                    self.debug_state(&old, &new);
+
+                    self.old_info = Some(new);
+                    self.failed_reads = 0;
                 }
                 (None, Some(new)) => self.old_info = Some(new),
-                (Some(_old), None) => info!("failed a read, will retry next step"),
+                (Some(_old), None) => {
+                    // TODO: after 100 failed reads or something, detatch, drop
+                    // state, and reset because we assume
+                    // the game is closed
+                    warn!("failed a read, will retry next step");
+                    self.failed_reads += 1;
+                    if self.failed_reads == 100 {
+                        error!("disconnected, will try to re-connect");
+                        self.old_info = None;
+                        self.state = None;
+                    }
+                }
                 _ => {}
             }
         } else if self.try_init().is_none() && self.was_connected {

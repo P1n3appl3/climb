@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-livesplit-wrapper = { path = "../../livesplit-wrapper" }
+livesplit-wrapper = { git = "https://github.com/P1n3appl3/livesplit-wrapper" }
 log = "0.4"
 
 [lib]
@@ -12,5 +12,4 @@ crate-type = ["cdylib"]
 
 [profile.release]
 lto = true
-# strip = true
 panic = "abort"
