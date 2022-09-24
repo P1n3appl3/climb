@@ -118,13 +118,13 @@
   "general": {
     "direction": "Vertical",
     "times_font": {
-      "family": "Noto Sans",
+      "family": "Arial",
       "style": "normal",
       "weight": "bold",
       "stretch": "normal"
     },
     "text_font": {
-      "family": "Noto Sans",
+      "family": "Arial",
       "style": "normal",
       "weight": "bold",
       "stretch": "normal"
