@@ -13,7 +13,7 @@
         "display_game_icon": true,
         "show_region": false,
         "show_platform": false,
-        "show_variables": true
+        "show_variables": false
       }
     },
     {
@@ -118,13 +118,13 @@
   "general": {
     "direction": "Vertical",
     "times_font": {
-      "family": "Arial",
+      "family": "Liberation Sans",
       "style": "normal",
       "weight": "bold",
       "stretch": "normal"
     },
     "text_font": {
-      "family": "Arial",
+      "family": "Liberation Sans",
       "style": "normal",
       "weight": "bold",
       "stretch": "normal"
