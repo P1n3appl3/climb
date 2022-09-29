@@ -53,7 +53,6 @@ impl Split {
     }
 }
 
-#[allow(unused)]
 #[derive(Clone, Debug, Default)]
 struct Info {
     asi: AutoSplitterInfo,
@@ -79,8 +78,9 @@ impl Info {
 #[derive(Clone, Copy, Debug, Default)]
 struct AutoSplitterInfo {
     level: u64,
+    /// (-1 in menus)
     chapter: i32,
-    /// 0/1/2 corrresponding to A/B/C sides
+    /// 0/1/2 corrresponding to A/B/C sides (-1 in menus)
     mode: i32,
     timer_active: bool,
     chapter_started: bool,
@@ -338,8 +338,7 @@ impl Splitter for MySplitter {
                 }
                 (None, Some(new)) => self.old_info = Some(new),
                 (Some(_old), None) => {
-                    // TODO: after 100 failed reads or something, detatch, drop
-                    // state, and reset because we assume
+                    // After lots of failed reads: detatch, drop state, and reset because we assume
                     // the game is closed
                     warn!("failed a read, will retry next step");
                     self.failed_reads += 1;

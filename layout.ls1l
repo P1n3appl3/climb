@@ -102,9 +102,7 @@
     },
     {
       "Timer": {
-        "background": {
-          "Gradient": "Transparent"
-        },
+        "background": "Transparent",
         "timing_method": "GameTime",
         "height": 50,
         "color_override": null,
