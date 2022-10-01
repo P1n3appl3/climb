@@ -321,7 +321,7 @@ impl Splitter for MySplitter {
                             finished_chapter
                         }
                         Cassette => new.asi.file_cassettes == 1 && !new.asi.chapter_started,
-                        Temple => new.asi.file_hearts == 1 && !new.asi.chapter_started,
+                        Temple => new.asi.file_hearts == 1 && new.asi.chapter_complete,
                         Summit2500M => new.checkpoint == 6,
                     } {
                         self.split();
